@@ -6,7 +6,7 @@ The user loads a floor-plan / background image alongside a YAML configuration. E
 
 ## Stack & constraints
 
-- **Single file**: everything lives in [Home-Assistant-Position-Editor.html](Home-Assistant-Position-Editor.html) — HTML + inline CSS + inline JS.
+- **Single file**: everything lives in [index.html](index.html) — HTML + inline CSS + inline JS. The file is named `index.html` so hosting providers (GitHub Pages, plain static servers, or just opening the folder in a browser) serve it automatically as the directory index.
 - **No build tools, no npm, no frameworks**. Plain vanilla JS, plain CSS.
 - **No external runtime dependencies** except Google Fonts (JetBrains Mono + Syne) loaded from a CDN in `<style>`.
 - Target: modern Chromium-based browsers (uses the **File System Access API** — `showOpenFilePicker`, `FileSystemHandle.requestPermission`). Falls back to a hidden `<input type=file>` when unavailable.
@@ -16,7 +16,7 @@ The user loads a floor-plan / background image alongside a YAML configuration. E
 
 ```
 /
-├── Home-Assistant-Position-Editor.html   ← the entire app
+├── index.html                            ← the entire app
 ├── PROJECT_INSTRUCTIONS.md               ← this file (context for Claude)
 ├── README.md                             ← GitHub landing page
 ├── LICENSE                               ← MIT
@@ -70,14 +70,14 @@ There is intentionally only one source file. Do **not** split it into separate `
 
 The app uses a **minimal, line-based, non-general-purpose YAML parser** specifically for the Home Assistant `picture-elements` structure. It is **not** a full YAML implementation.
 
-**Parsing** ([Home-Assistant-Position-Editor.html:744](Home-Assistant-Position-Editor.html#L744)):
+**Parsing** ([index.html:744](index.html#L744)):
 - Scans for the top-level `elements:` key.
 - Each `- type: …` starts a new element record.
 - Extracts `left`, `top`, `entity`, `title` by prefix match on trimmed lines.
 - Everything else in the element is stashed in `_extraLines` but is **not** currently used on serialize — the serializer rewrites the *original* lines in place.
 - The elements block is considered ended when a non-indented key (that isn't a list item) appears.
 
-**Serialization** ([Home-Assistant-Position-Editor.html:788](Home-Assistant-Position-Editor.html#L788)):
+**Serialization** ([index.html:788](index.html#L788)):
 - Walks the original YAML line-by-line and **only rewrites the `left:`, `top:`, and `title:` lines** belonging to elements inside the `elements:` block. Indentation is preserved by matching the leading whitespace of the original line.
 - `left` / `top` are only rewritten when inside a `style:` sub-block of an element (to avoid touching `top:` fields in unrelated nested structures).
 - If an element previously had no `title:` line and one has been added in the UI, a new `title:` line is injected immediately before the `entity:` line, using the same indent.
@@ -94,11 +94,10 @@ The app uses a **minimal, line-based, non-general-purpose YAML parser** specific
 - Before big refactors / structural changes, remind the user to push to GitHub first.
 - On "we're finishing / commit time / closing the chat": update **this file** and **README.md** to reflect the current state, then propose a commit name + description for the user to run themselves.
 
-## Current state (as of 2026-04-19)
+## Current state (as of 2026-04-20)
 
-- Initial commit (`24ad49a`) contains the working single-file app.
-- `Home-Assistant-Position-Editor.html` is untracked in git — ready to be added in the next commit.
-- All features listed above are implemented and functional in the initial version.
+- Main app file has been renamed from `Home-Assistant-Position-Editor.html` to `index.html` so the folder can be opened / hosted directly (GitHub Pages, plain static servers, or `file://` on the directory) and resolve to the app automatically.
+- All features listed above are implemented and functional.
 - No known bugs tracked yet.
 
 ## Open ideas / possible next steps

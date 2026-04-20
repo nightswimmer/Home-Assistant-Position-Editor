@@ -20,7 +20,7 @@ The whole app is a **single self-contained HTML file** with zero dependencies an
 
 ## Usage
 
-1. Open [`Home-Assistant-Position-Editor.html`](Home-Assistant-Position-Editor.html) in a modern Chromium-based browser (Chrome, Edge, Brave, Opera).
+1. Open [`index.html`](index.html) in a modern Chromium-based browser (Chrome, Edge, Brave, Opera). Because the file is named `index.html`, you can also just open the folder directly (or host it on GitHub Pages / any static server) and the app loads automatically.
 2. Click **Load Image** and pick your floor plan.
 3. Click **Load YAML** and pick your `picture-elements` YAML (or paste it into the sidebar).
 4. Drag icons, tweak titles, hit **Save YAML** (downloads `map_updated.txt`) or **Copy YAML**.
@@ -45,7 +45,7 @@ Designed for browsers with the **File System Access API** — Chromium-family (C
 
 ## Project files
 
-- [`Home-Assistant-Position-Editor.html`](Home-Assistant-Position-Editor.html) — the app.
+- [`index.html`](index.html) — the app.
 - [`PROJECT_INSTRUCTIONS.md`](PROJECT_INSTRUCTIONS.md) — internal context document used when developing with Claude Code.
 - [`LICENSE`](LICENSE) — MIT.
 
